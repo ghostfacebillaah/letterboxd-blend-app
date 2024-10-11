@@ -1,0 +1,349 @@
+body {
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(https://core-cms.bfi.org.uk/sites/default/files/styles/responsive/public/2021-01/in-the-mood-for-love-2000-maggie-cheung-against-wall-with-tony-leung.jpg/1920x1080-cropped/in-the-mood-for-love-2000-maggie-cheung-against-wall-with-tony-leung.jpg);
+    min-width: fit-content;
+    background-size: contain;
+    background-position: center; */
+    min-width: fit-content;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+    background-color: #14181c; /* Background color */
+    margin: 0;
+    padding: 0;
+} 
+
+@font-face {
+    font-family: 'LetterboxdFont';
+    src: url('../assets/fonts/letterboxd-font.otf') format('opentype'),
+         url('../assets/fonts/letterboxd-font.ttf') format('truetype');
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFFFFF; 
+    letter-spacing: 0.001em;
+}
+
+@font-face {
+    font-family: 'Graphik-Semibold-Web';
+    src: url('../assets/fonts/GraphikLight.otf') format('opentype');
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFFFFF; 
+    letter-spacing: 0.001em;
+}
+
+.title {    
+    font-family: LetterboxdFont; /* Font family */
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.001em;
+    color: #FFFFFF; /* Adjust the color as needed */
+} 
+
+.home-container {
+    align-items: center;    
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #14181c; /* Background color for container */
+    border-radius: 8px;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+}
+
+.home-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+}
+
+.textbox-container {
+    position: relative;
+}
+
+.input-box {
+    width: 100%;
+    padding: 15px 15px 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0;
+    font-size: 18px;
+    box-sizing: border-box;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+    background-color: transparent;
+    color: white;
+}
+
+.input-box:focus, .input-box:not(:placeholder-shown) {
+    border-color: #00e054;
+    outline: none; /* Remove outline */
+}
+
+/* BLEND Button Styles */
+.submit-button {
+    padding: 15px;
+    background-color: #c86400;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: LetterboxdFont, sans-serif; /* Font family */
+    font-weight: 550;
+    letter-spacing: .05em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.watchlist-button {
+    padding: 15px;
+    background-color: #00a13e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: LetterboxdFont, sans-serif; /* Font family */
+    font-weight: 550;
+    letter-spacing: .05em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover Effect */
+.submit-button:hover {
+    background-color: #964b00;
+    box-shadow: 0 2px 8px #964b00(0, 123, 255, 0.3); /* Smooth shadow effect */
+    transform: translateY(-1.25px); /* Slight upward movement */
+}
+
+/* Active/Clicked Effect */
+.submit-button:active {
+    transform: translateY(0); /* Remove the upward movement */
+    box-shadow: 0 2px 8px #964b00(0, 123, 255, 0.2); /* Subtle shadow reduction */
+}
+
+/* Hover Effect */
+.watchlist-button:hover {
+    background-color: #008232;
+    box-shadow: 0 2px 8px #008232(0, 123, 255, 0.3); /* Smooth shadow effect */
+    transform: translateY(-1.25px); /* Slight upward movement */
+}
+
+/* Active/Clicked Effect */
+.watchlist-button:active {
+    transform: translateY(0); /* Remove the upward movement */
+    box-shadow: 0 2px 8px #008232(0, 123, 255, 0.2); /* Subtle shadow reduction */
+}
+
+.hidden-element {
+    position: absolute;
+    visibility: hidden;
+    white-space: pre;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    word-spacing: 0px;
+    letter-spacing: 0px;
+    text-indent: 0px;
+    text-rendering: auto;
+    text-transform: none;
+}
+
+/* Floating label styles */
+.floating-label {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.floating-label input {
+    padding-top: 20px; /* Adjust padding to create space for the label */
+}
+
+.floating-label label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background-color: #14181c; /* Same as container background */
+    padding: 0px 0px 0px;
+    color: #aaa;
+    font-size: 18px;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+    pointer-events: none;
+    transition: 0.2s ease all;
+    opacity: 1;
+    transform: translateY(0); /* Default position */
+}
+
+.floating-label input:focus ~ label,
+.floating-label input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 12px;
+    color: #00e054;
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.result-container {
+    text-align: center;
+    color: white;
+}
+
+.circles-container {
+    position: absolute;
+    top: 0%; /* Move it to the top of the page */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    width: 500px;
+    height: 500px;
+    overflow: visible; /* Ensure the circles are not cut off */
+}
+
+.circle {
+    position: absolute;
+    width: 300px; /* Size of the circle */
+    height: 300px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Starts hidden */
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+}
+
+.circle1 {
+    background-size: contain; /* Ensures the entire image is visible */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image within the circle */
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%); /* Center the circle */
+    z-index: 1;
+}
+
+.circle2 {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%); /* Center the circle */
+    z-index: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes moveSide {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        transform: translate(30%, -50%) scale(1); /* Moves horizontally to the right */
+    }
+}
+
+.progress-text {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: white;
+    font-family: LetterboxdFont;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.001em;
+    animation: fadeIn 0.75s ease-out forwards; /* Fade in animation */
+ }
+
+.quote-text {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    top: 76%;
+    left: 50%;
+    color: #99AABB; 
+    font-style: italic;
+}
+
+  
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+  
+.btn1 {
+    position: absolute;
+    top: 85%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
+}
+
+.btn2 {
+    position: absolute;
+    top: 85%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
+}
+
+.btn3 {
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
+}
+ 
+
+.btn:hover {
+    background-color: #0056b3;
+}
+  
+  
+  
+
+
+
+  

@@ -1,0 +1,100 @@
+body {
+    background-color: #14181c; /* Dark background for the body */
+    font-family: "GraphikLight"; /* Font style for the body */
+    color: #fff; /* White text color */
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full height of the viewport */
+}
+
+@font-face {
+    font-family: 'LetterboxdFont';
+    src: url('../assets/fonts/letterboxd-font.otf') format('opentype'),
+         url('../assets/fonts/letterboxd-font.ttf') format('truetype');
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFFFFF; 
+    letter-spacing: 0.001em;
+}
+
+@font-face {
+    font-family: 'GraphikLight';
+    src: url('../assets/fonts/GraphikLight.otf') format('opentype');
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFFFFF; 
+    letter-spacing: 0.001em;
+}
+
+
+  
+#app {
+    width: 90%; /* Full width with a maximum */
+    max-width: 1200px; /* Max width to prevent stretching */
+}
+  
+.poster-grid {
+    display: flex; /* Grid layout for posters */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
+    gap: 1rem; /* Space between grid items */
+    padding: 1rem; /* Padding around the grid */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+    justify-content: center; /* Center the items */
+    margin: 20px; /* Add some margin around the grid */
+}
+  
+.poster-item {
+    position: relative; /* Position relative for overlay */
+    overflow: hidden; /* Hide overflow for better aesthetics */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #222; /* Dark background color for items */
+    flex: 1 1 200px; /* Make each item flexible, with a minimum width of 200px */
+    margin: 10px; /* Add some margin between items */
+    animation: fadeIn 0.75s ease-out forwards; /* Fade in animation */
+}
+  
+.poster-item img {
+    width: 100%; /* Full width */
+    display: block;
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for scale */
+}
+  
+  
+.poster-overlay {
+    position: absolute; /* Positioning overlay */
+    bottom: 0; /* Align at the bottom */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    color: white; /* White text color */
+    padding: 0.5rem; /* Padding for the overlay */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out; /* Smooth fade in */
+    pointer-events: none;
+}
+  
+.poster-item:hover .poster-overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+  
+h4, p {
+    margin: 0; /* Remove default margins */
+    font-size: 14px; /* Font size for text */
+}
+
+.btn1{
+    font-family: "LetterboxdFont", sans-serif; /* Font style for the body */
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+}
+  
+h1 {
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+}
