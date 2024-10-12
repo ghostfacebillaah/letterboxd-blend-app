@@ -16,7 +16,7 @@ function ResultPage() {
     const fetchResults = async () => {
       try {
         // Fetch blend percentage
-        const responseBlend = await fetch('http://localhost:5000/api/calculate_blend', {
+        const responseBlend = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/calculate_blend`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username1, username2 }),
@@ -25,7 +25,7 @@ function ResultPage() {
         setBlendPercentage(blendData.blend_percentage);
 
         // Fetch profile avatars
-        const responseAvatars = await fetch('http://localhost:5000/api/profile_avatars', {
+        const responseAvatars = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/profile_avatars`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username1, username2 }),
