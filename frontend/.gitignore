@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+.env           # Ignore the main .env file
 .env.local
 .env.development.local
 .env.test.local
