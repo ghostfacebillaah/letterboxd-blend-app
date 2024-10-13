@@ -33,13 +33,11 @@ body {
     letter-spacing: 0.001em;
 }
 
-
-  
 #app {
     width: 90%; /* Full width with a maximum */
     max-width: 1200px; /* Max width to prevent stretching */
 }
-  
+
 .poster-grid {
     display: flex; /* Grid layout for posters */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
@@ -49,7 +47,7 @@ body {
     justify-content: center; /* Center the items */
     margin: 20px; /* Add some margin around the grid */
 }
-  
+
 .poster-item {
     position: relative; /* Position relative for overlay */
     overflow: hidden; /* Hide overflow for better aesthetics */
@@ -59,15 +57,14 @@ body {
     margin: 10px; /* Add some margin between items */
     animation: fadeIn 0.75s ease-out forwards; /* Fade in animation */
 }
-  
+
 .poster-item img {
     width: 100%; /* Full width */
     display: block;
     height: auto; /* Maintain aspect ratio */
     transition: transform 0.3s ease-in-out; /* Smooth transition for scale */
 }
-  
-  
+
 .poster-overlay {
     position: absolute; /* Positioning overlay */
     bottom: 0; /* Align at the bottom */
@@ -80,21 +77,67 @@ body {
     transition: opacity 0.3s ease-in-out; /* Smooth fade in */
     pointer-events: none;
 }
-  
+
 .poster-item:hover .poster-overlay {
     opacity: 1; /* Show overlay on hover */
 }
-  
+
 h4, p {
     margin: 0; /* Remove default margins */
     font-size: 14px; /* Font size for text */
 }
 
-.btn1{
+.btn3 {
     font-family: "LetterboxdFont", sans-serif; /* Font style for the body */
     animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
 }
-  
+
 h1 {
     animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Reduce font size for smaller screens */
+    }
+
+    .btn3 {
+        font-size: 1.5rem; /* Adjust button font size */
+    }
+
+    .poster-item {
+        flex: 1 1 150px; /* Make items smaller on smaller screens */
+    }
+
+    h4, p {
+        font-size: 12px; /* Adjust font size for text */
+    }
+
+    .poster-grid {
+        margin: 10px; /* Reduce margin around grid */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Further reduce font size for mobile */
+    }
+
+    .btn3 {
+        font-size: 1.2rem; /* Adjust button font size */
+        left: 50%;
+    }
+
+    .poster-item {
+        flex: 1 1 120px; /* Make items even smaller */
+    }
+
+    h4, p {
+        font-size: 10px; /* Further adjust font size for text */
+    }
+
+    .poster-grid {
+        padding: 0.5rem; /* Reduce padding for the grid */
+    }
 }
