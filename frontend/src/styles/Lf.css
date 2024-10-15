@@ -141,3 +141,27 @@ h1 {
         padding: 0.5rem; /* Reduce padding for the grid */
     }
 }
+
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.5rem; /* Further reduce font size for mobile */
+    }
+
+    .btn3 {
+        font-size: 1.2rem; /* Adjust button font size */
+        left: 50%;
+        top: 92.5%;
+    }
+
+    .poster-item {
+        flex: 1 1 120px; /* Make items even smaller */
+    }
+
+    h4, p {
+        font-size: 10px; /* Further adjust font size for text */
+    }
+
+    .poster-grid {
+        padding: 0.5rem; /* Reduce padding for the grid */
+    }
+}
