@@ -447,63 +447,59 @@ body {
     }
 }
 
+
 /* Mobile devices */
 @media (max-width: 360px) {
     .circles-container {
-        width: 90%;
-        height: 250px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 90%; 
+        height: auto;
+        margin-top: 25vh; /* Space from top */
     }
-
+    
     .circle {
-        width: 200px;
-        height: 200px;
+        width: 200px; /* Adjust as necessary */
+        height: 200px; /* Adjust as necessary */
         object-fit: cover;
+        margin: -1.5px; /* Space between circles */
     }
-
-    .circle1 {
-        top: 85%;
-        left: 30%;
-    }
-
-    .circle2 {
-        top: 85%;
-        left: 70.5%;
-    }
-
+    
     .progress-text {
-        font-size: 1.7rem;
-        white-space: nowrap; /* Prevents text from wrapping */
-        top: 51%;
-        left: 50%;
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 2vh 0;
         animation: fadeIn 0.75s ease-out forwards;
     }
-
+    
     .quote-text {
         font-size: 1rem;
-        top: 58%;
-        margin: 0;
+        margin: 1.8vh -5px;
         padding: 0;
-        width: 100vw;  /* Full width of the viewport */
-        overflow: hidden; /* Hide overflow */
-        max-width: 100%; /* Limits the width of the text container */
-        display: inline-block; /* Ensures it's treated as a block element */
+        width: 100%; 
+        text-align: center;
+        animation: fadeIn 0.75s ease-out forwards;
     }
-
+    
     .btn {
-        font-size: 10px;
-        padding: 5px 10px;
-        animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+        font-size: 12px;
+        padding: 8px 16px;
+        margin-top: 2vh;
+        animation: fadeIn 0.5s ease-out forwards;
     }
-
-    .btn2 {
-        top: 75%;
-        left: 50%;
-        white-space: nowrap;
-        font-size: 22px;
+    
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5vh;
     }
-
-    .btn1 {
-        top: 84%;
-        left: 50%
+    
+    .btn1, .btn2 {
+        margin: 10px 0;
+        font-size: 15px;
     }
+    
 }
