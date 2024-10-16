@@ -1,167 +1,505 @@
+/* Base Styles */
+
 body {
-    background-color: #14181c; /* Dark background for the body */
-    font-family: "GraphikLight"; /* Font style for the body */
-    color: #fff; /* White text color */
-    margin: 0; /* Reset default margin */
-    padding: 0; /* Reset default padding */
-    display: flex; /* Flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    min-height: 100vh; /* Full height of the viewport */
+    /* Set a minimum width to prevent the layout from breaking */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(https://core-cms.bfi.org.uk/sites/default/files/styles/responsive/public/2021-01/in-the-mood-for-love-2000-maggie-cheung-against-wall-with-tony-leung.jpg/1920x1080-cropped/in-the-mood-for-love-2000-maggie-cheung-against-wall-with-tony-leung.jpg);
+    min-width: fit-content;
+    background-size: contain;
+    background-position: center; */
+    min-width: fit-content;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: Graphik-Semibold-Web, sans-serif;
+    background-color: #14181c;
+    margin: 0;
+    padding: 0;
 }
+
+/* Import custom fonts */
 
 @font-face {
     font-family: 'LetterboxdFont';
     src: url('../assets/fonts/letterboxd-font.otf') format('opentype'),
          url('../assets/fonts/letterboxd-font.ttf') format('truetype');
-    font-size: 3rem;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #FFFFFF; 
-    letter-spacing: 0.001em;
 }
 
 @font-face {
-    font-family: 'GraphikLight';
+    font-family: 'Graphik-Semibold-Web';
     src: url('../assets/fonts/GraphikLight.otf') format('opentype');
+    font-weight: 400;
+}
+
+/* Title Styling */
+.title {
+    font-family: LetterboxdFont;
     font-size: 3rem;
-    font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-    color: #FFFFFF; 
+    letter-spacing: 0.001em;
+    color: #FFFFFF;
+}
+
+/* Home Container */
+.home-container {
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: auto;
+    background-color: #14181c;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Graphik-Semibold-Web, sans-serif;
+}
+
+/* Form Styling */
+.home-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Graphik-Semibold-Web, sans-serif;
+}
+
+/* Textbox container */
+.textbox-container {
+    position: relative;
+}
+
+/* Input box styling */
+.input-box {
+    width: 100%;
+    padding: 15px 15px 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0;
+    font-size: 18px;
+    box-sizing: border-box;
+    font-family: Graphik-Semibold-Web, sans-serif; /* Font family */
+    background-color: transparent;
+    color: white;
+}
+
+/* Input box focus state */
+.input-box:focus, .input-box:not(:placeholder-shown) {
+    border-color: #00e054;
+    outline: none;
+}
+
+/* Submit Button Styles */
+.submit-button, .watchlist-button {
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: white;
+    font-family: LetterboxdFont, sans-serif;
+    font-weight: 550;
+    letter-spacing: .05em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Submit Button specific styles */
+.submit-button {
+    background-color: #c86400;
+}
+
+/* Submit Button hover state */
+.submit-button:hover {
+    background-color: #964b00;
+    box-shadow: 0 2px 8px rgba(150, 75, 0, 0.3);
+    transform: translateY(-1.25px);
+}
+
+/* Submit Button active state */
+.submit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(150, 75, 0, 0.2);
+}
+
+/* Watchlist button specific styles */
+.watchlist-button {
+    background-color: #00a13e;
+}
+
+/* Watchlist button hover state */
+.watchlist-button:hover {
+    background-color: #008232;
+    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.3);
+    transform: translateY(-1.25px);
+}
+
+/* Watchlist button active state */
+.watchlist-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.2);
+}
+
+/* Hidden element used for form validation */
+.hidden-element {
+    position: absolute;
+    visibility: hidden;
+    font-family: Graphik-Semibold-Web, sans-serif;
+    font-size: 14px;
+}
+
+/* Floating label styles */
+.floating-label {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Adjust padding of input to accommodate floating label */
+.floating-label input {
+    padding-top: 20px;
+}
+
+/* Label styling */
+.floating-label label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background-color: #14181c;
+    color: #aaa;
+    padding: 0px 0px 0px;
+    font-size: 18px;
+    font-family: Graphik-Semibold-Web, sans-serif;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    opacity: 1;
+    transform: translateY(0); /* Default position */
+}
+
+/* Floating label focus state */
+.floating-label input:focus ~ label,
+.floating-label input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 12px;
+    color: #00e054;
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+/* Result Page Styles */
+.result-container {
+    text-align: center;
+    color: white;
+}
+
+/* Spinner for loading indicator */
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #00e054;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Container for circles during progress animation */
+.circles-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    overflow: visible; /* Ensure the circles are not cut off */
+    height: 500px;
+}
+
+/* Circle styles */
+.circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* First circle positioning */
+.circle1 {
+    background-size: contain; /* Ensures the entire image is visible */
+    background-position: center; /* Centers the image within the circle */
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%); /* Center the circle */
+    z-index: 1;
+}
+
+/* Second circle positioning */
+.circle2 {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Progress text styling */
+.progress-text {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: white;
+    font-family: LetterboxdFont;
+    font-weight: bold;
+    animation: fadeIn 0.75s ease-out forwards;
+    text-align: center;
+    margin-bottom: 20px;
     letter-spacing: 0.001em;
 }
 
-#app {
-    width: 90%; /* Full width with a maximum */
-    max-width: 1200px; /* Max width to prevent stretching */
+/* Quote text styling */
+.quote-text {
+    position: absolute;
+    top: 76%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #99AABB;
+    font-style: italic;
 }
 
-.poster-grid {
-    display: flex; /* Grid layout for posters */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
-    gap: 1rem; /* Space between grid items */
-    padding: 1rem; /* Padding around the grid */
-    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
-    justify-content: center; /* Center the items */
-    margin: 20px; /* Add some margin around the grid */
+/* Button container for common buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.poster-item {
-    position: relative; /* Position relative for overlay */
-    overflow: hidden; /* Hide overflow for better aesthetics */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #222; /* Dark background color for items */
-    flex: 1 1 200px; /* Make each item flexible, with a minimum width of 200px */
-    margin: 10px; /* Add some margin between items */
-    animation: fadeIn 0.75s ease-out forwards; /* Fade in animation */
+.btn1 {
+    position: absolute;
+    top: 85%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
 }
 
-.poster-item img {
-    width: 100%; /* Full width */
-    display: block;
-    height: auto; /* Maintain aspect ratio */
-    transition: transform 0.3s ease-in-out; /* Smooth transition for scale */
-}
-
-.poster-overlay {
-    position: absolute; /* Positioning overlay */
-    bottom: 0; /* Align at the bottom */
-    left: 0; /* Align to the left */
-    right: 0; /* Align to the right */
-    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-    color: white; /* White text color */
-    padding: 0.5rem; /* Padding for the overlay */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease-in-out; /* Smooth fade in */
-    pointer-events: none;
-}
-
-.poster-item:hover .poster-overlay {
-    opacity: 1; /* Show overlay on hover */
-}
-
-h4, p {
-    margin: 0; /* Remove default margins */
-    font-size: 14px; /* Font size for text */
+.btn2 {
+    position: absolute;
+    top: 85%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
 }
 
 .btn3 {
-    font-family: "LetterboxdFont", sans-serif; /* Font style for the body */
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    font-family: LetterboxdFont;
 }
 
-h1 {
-    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+/* Button hover state */
+.btn:hover {
+    background-color: #0056b3;
 }
 
-/* Media Queries for Responsive Design */
+/* Responsive Styles */
+
+/* Tablet and medium-sized screens */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2rem; /* Reduce font size for smaller screens */
+    .circles-container {
+        width: 80%;
+        height: 300px;
     }
 
-    .btn3 {
-        font-size: 1.5rem; /* Adjust button font size */
+    .circle {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
     }
 
-    .poster-item {
-        flex: 1 1 150px; /* Make items smaller on smaller screens */
+    .circle1 {
+        top: 50%;
+        left: 40%;
     }
 
-    h4, p {
-        font-size: 12px; /* Adjust font size for text */
+    .circle2 {
+        top: 50%;
+        left: 60%;
     }
 
-    .poster-grid {
-        margin: 10px; /* Reduce margin around grid */
+    .progress-text {
+        font-size: 22px;
+        top: 65%;
+    }
+
+    .quote-text {
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        width: 100vw;  /* Full width of the viewport */
+        overflow: hidden; /* Hide overflow */
+        max-width: 100%; /* Limits the width of the text container */
+        display: inline-block; /* Ensures it's treated as a block element */
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 6px 12px;
     }
 }
 
+/* Mobile devices */
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.5rem; /* Further reduce font size for mobile */
+    .circles-container {
+        width: 90%;
+        height: 250px;
     }
 
-    .btn3 {
-        font-size: 1.2rem; /* Adjust button font size */
-        left: 50%;
+    .circle {
+        width: 225px;
+        height: 225px;
+        object-fit: cover;
     }
 
-    .poster-item {
-        flex: 1 1 120px; /* Make items even smaller */
+    .circle1 {
+        top: 95%;
+        left: 30%;
     }
 
-    h4, p {
-        font-size: 10px; /* Further adjust font size for text */
+    .circle2 {
+        top: 95%;
+        left: 70.5%;
     }
 
-    .poster-grid {
-        padding: 0.5rem; /* Reduce padding for the grid */
+    .progress-text {
+        font-size: 1.75rem;
+        white-space: nowrap; /* Prevents text from wrapping */
+        top: 44%;
+        left: 50.5%;
+        animation: fadeIn 0.75s ease-out forwards;
+    }
+
+    .quote-text {
+        font-size: 1.2rem;
+        top: 52%;
+        margin: 0;
+        padding: 0;
+        width: 100vw;  /* Full width of the viewport */
+        overflow: hidden; /* Hide overflow */
+        max-width: 100%; /* Limits the width of the text container */
+        display: inline-block; /* Ensures it's treated as a block element */
+    }
+
+    .btn {
+        font-size: 10px;
+        padding: 5px 10px;
+        animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+    }
+
+    .btn2 {
+        top: 75%;
+        left: 51%;
+        font-size: 22px;
+    }
+
+    .btn1 {
+        top: 84%;
+        left: 51%
     }
 }
 
+
+/* Mobile devices */
 @media (max-width: 360px) {
-    h1 {
-        font-size: 1.5rem; /* Further reduce font size for mobile */
+    .circles-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 90%; 
+        height: auto;
+        margin-top: 25vh; /* Space from top */
     }
-
-    .btn3 {
-        font-size: 1.2rem; /* Adjust button font size */
-        left: 50%;
-        top: 100%;
+    
+    .circle {
+        width: 200px; /* Adjust as necessary */
+        height: 200px; /* Adjust as necessary */
+        object-fit: cover;
+        margin: -1.5px; /* Space between circles */
     }
-
-    .poster-item {
-        flex: 1 1 120px; /* Make items even smaller */
+    
+    .progress-text {
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 2vh 0;
+        animation: fadeIn 0.75s ease-out forwards;
     }
-
-    h4, p {
-        font-size: 10px; /* Further adjust font size for text */
+    
+    .quote-text {
+        font-size: 1rem;
+        margin: 1.8vh -5px;
+        padding: 0;
+        width: 100%; 
+        text-align: center;
+        animation: fadeIn 0.75s ease-out forwards;
     }
-
-    .poster-grid {
-        padding: 0.5rem; /* Reduce padding for the grid */
+    
+    .btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        margin-top: 2vh;
+        animation: fadeIn 0.5s ease-out forwards;
     }
+    
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5vh;
+    }
+    
+    .btn1, .btn2 {
+        margin: 10px 0;
+        font-size: 15px;
+    }
+    
 }
