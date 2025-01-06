@@ -8,7 +8,7 @@
 
 
 - **Top Common Films**: Displays the top four movies that the users have both rated highly, along with their posters and links to the movies' Letterboxd pages.
-  ![image](https://github.com/user-attachments/assets/d6cadda8-8486-4ee7-b7f3-e2bd9eca2eed)
+  ![image](https://github.com/user-attachments/assets/4b394ae0-c303-408c-ad82-11cbe5ab9d4c)
 
   
 - **Interactive UI**: A user-friendly interface where two usernames can be entered, and the results are displayed in an engaging way.
