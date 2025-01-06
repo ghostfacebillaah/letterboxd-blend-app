@@ -6,6 +6,7 @@
 - **Blend Percentage Calculation**: Compares two users’ movie tastes using a combination of Spearman's rank correlation for ratings and Jaccard similarity for various attributes like genres, directors, and more.
   ![image](https://github.com/user-attachments/assets/a31af927-a87b-4f38-914c-0c4971e5327f)
 
+
 - **Top Common Films**: Displays the top four movies that the users have both rated highly, along with their posters and links to the movies' Letterboxd pages.
   ![image](https://github.com/user-attachments/assets/d6cadda8-8486-4ee7-b7f3-e2bd9eca2eed)
 
