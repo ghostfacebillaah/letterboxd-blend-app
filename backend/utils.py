@@ -50,18 +50,36 @@ def scrape_diary(username):
         url_page = requests.get(url)
         soup = BeautifulSoup(url_page.content, 'html.parser')
         
-        diary_entries = soup.find_all("a", {"class": "edit-review-button"})
+        diary_entries = soup.find_all("tr", class_="diary-entry-row")
+        if not diary_entries:
+            break
+
         for entry in diary_entries:
-            movie_id = entry['data-film-id']
-            title = entry['data-film-name']
-            rating = float(entry['data-rating']) / 2.0 if entry['data-rating'] != '0' else None
-            date = entry['data-viewing-date']
-            link = entry['data-film-poster'].replace('/image-150/', '')
-            
+            title_tag = entry.find("td", class_="td-film-details").find("a")
+            if not title_tag:
+                continue  # Skip this entry if the title tag is missing
+
+            movie_id = entry["data-object-id"].split(":")[-1]
+            title = title_tag.text.strip()
+            link = entry.find("td", class_="td-actions")["data-film-link"].strip()
+        
+            date_tag = entry.find("td", class_="td-day").find("a")
+            if date_tag and "films/diary/for/" in date_tag["href"]:
+                diary_date = date_tag["href"].split("/for/")[-1].strip("/")  # Extract full date (YYYY/MM/DD)
+            else:
+                diary_date = "Unknown"
+        
+            rating_tag = entry.find("td", class_="td-rating")
+            rating = None
+            if rating_tag:
+                star_tag = rating_tag.find("span", class_="rating")
+                if star_tag:
+                    rating = transform_ratings(star_tag.text.strip())
+                    
             movies_dict['id'].append(movie_id)
             movies_dict['title'].append(title)
             movies_dict['rating'].append(rating)
-            movies_dict['date'].append(date)
+            movies_dict['date'].append(diary_date)
             movies_dict['link'].append(link)
 
     df_diary = pd.DataFrame(movies_dict)
@@ -165,7 +183,7 @@ def calculate_blend_percentage(user1, user2):
     common_movies = pd.merge(df_user1, df_user2, on='link', suffixes=('_user1', '_user2'))
 
     # Calculate proportion of common films
-    total_movies = len(set(df_user1['link']).union(set(df_user2['link'])))
+    total_movies = len(set(df_user1['link']).union(set(df_user2 ['link'])))
     proportion_common = len(common_movies) / total_movies if total_movies > 0 else 0
 
     # Filter out unrated movies for Spearman's calculation
@@ -235,6 +253,8 @@ def find_top_rated_common_films(username1, username2, top_n=4):
         
         # Select top top_n films based on sum of ratings
         common_films = common_films.nlargest(top_n, 'sum_ratings')
+
+        #link = f"/film/{link.split("/film/", 1)[-1]}"
 
     if common_films.empty:
         return None, None
