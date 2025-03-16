@@ -55,7 +55,7 @@ const WatchlistParty = () => {
         });*/
     
         try {
-            const response = await fetch("http://localhost:5000/api/watchlist-party", {
+            const response = await fetch("${process.env.REACT_APP_BACKEND_URL}/api/watchlist-party", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
