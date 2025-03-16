@@ -23,6 +23,7 @@ Flask-Cors==4.0.1
 future==1.0.0
 gevent==24.2.1
 greenlet==3.0.3
+gunicorn==23.0.0
 h11==0.14.0
 httpcore==1.0.5
 httptools==0.6.1
@@ -35,6 +36,7 @@ MarkupSafe==2.1.5
 mdurl==0.1.2
 numpy==2.0.1
 openpyxl==3.1.5
+packaging==24.1
 pandas==2.2.2
 pdfminer.six==20240706
 pycparser==2.22
