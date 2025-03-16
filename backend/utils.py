@@ -4,6 +4,7 @@ from collections import Counter
 import requests
 import json
 from bs4 import BeautifulSoup
+from concurrent.futures import ThreadPoolExecutor
 
 # Constants
 LOCAL_DB_PATH = 'mother22.csv'
@@ -304,3 +305,124 @@ def scrape_movie_poster(film_url):
             raise ValueError("Error decoding JSON: " + str(e))
     else:
         raise ValueError("Could not find the JSON-LD script tag.")
+
+def fetch_page(session, url):
+    """Fetches a webpage using a shared session."""
+    response = session.get(url)
+    return response.content if response.status_code == 200 else None
+
+def get_total_pages(session, username):
+    """Retrieves the total number of pages in a user's watchlist."""
+    url = f"{DOMAIN}/{username}/watchlist/"
+    soup = BeautifulSoup(fetch_page(session, url), 'html.parser')
+    pagination = soup.find_all("li", class_="paginate-page")
+    return int(pagination[-1].find('a').text.strip()) if pagination else 1
+
+def parse_watchlist_page(content):
+    """Parses a single watchlist page and extracts movie data."""
+    soup = BeautifulSoup(content, 'html.parser')
+    ul = soup.find("ul", class_="poster-list")
+    
+    if not ul:
+        return []
+
+    movies = []
+    for movie in ul.find_all("li"):
+        movies.append({
+            "id": movie.find("div")["data-film-id"],
+            "title": movie.find("img")["alt"],
+            "link": movie.find("div")["data-target-link"]
+        })
+    
+    return movies
+
+def scrape_watchlist(username):
+    """Scrapes the watchlist of a given Letterboxd user with optimized requests."""
+    with requests.Session() as session:
+        total_pages = get_total_pages(session, username)
+        urls = [f"{DOMAIN}/{username}/watchlist/page/{i}/" for i in range(1, total_pages + 1)]
+
+        movies = []
+        with ThreadPoolExecutor() as executor:
+            results = executor.map(lambda url: fetch_page(session, url), urls)
+            for content in results:
+                if content:
+                    movies.extend(parse_watchlist_page(content))
+
+    return pd.DataFrame(movies)
+
+def find_common_watchlist(usernames):
+    """Finds the intersection of watchlists among multiple users."""
+    watchlists = [scrape_watchlist(user) for user in usernames]
+    
+    # Remove empty watchlists
+    watchlists = [wl for wl in watchlists if not wl.empty]
+    
+    if not watchlists:
+        return pd.DataFrame()
+    
+    common_movies = watchlists[0]
+    for wl in watchlists[1:]:
+        common_movies = pd.merge(common_movies, wl, on=["id", "title", "link"])
+        if common_movies.empty:
+            return pd.DataFrame()
+
+    return common_movies
+
+def merge_with_local_dbw(common_watchlist, local_db_path=LOCAL_DB_PATH):
+    """Merges the common watchlist with the local movie database, reading only required columns."""
+    if common_watchlist.empty:
+        return pd.DataFrame()
+    
+    local_db = pd.read_csv(local_db_path, usecols=["link", "title", "avg_rating", "genres", "directors", "decade", "runtime"])
+    merged_df = pd.merge(common_watchlist, local_db, on="link", how="left")  # Merge using Letterboxd link
+
+    # Rename title column explicitly if needed
+    #if "title_x" in merged_df.columns:
+     #   merged_df.rename(columns={"title_x": "title"}, inplace=True)
+    #merged_df.to_csv("testos.csv", index=False)
+
+    return merged_df
+
+def filter_common_movies(merged_df, genre=None, director=None, decade=None, min_runtime=None, max_runtime=None):
+    """Filters the merged database by genre, director, decade, and runtime range."""
+    if merged_df.empty:
+        return pd.DataFrame()
+    
+    # Convert runtime to numeric and drop NaNs
+    merged_df["runtime"] = pd.to_numeric(merged_df["runtime"], errors="coerce")
+    merged_df = merged_df.dropna(subset=["runtime"])
+
+    # Apply filters selectively
+    if genre:
+        merged_df = merged_df[merged_df["genres"].str.contains(genre, case=False, na=False)]
+    if director:
+        merged_df = merged_df[merged_df["directors"].str.contains(director, case=False, na=False)]
+    if decade:
+        merged_df = merged_df[merged_df["decade"].astype(str).str.startswith(str(decade))]
+    if min_runtime is not None and max_runtime is not None:
+        merged_df = merged_df[(merged_df["runtime"] >= int(min_runtime)) & (merged_df["runtime"] <= int(max_runtime))]
+
+    return merged_df
+
+def get_watchlist_party_results(usernames, genre=None, director=None, decade=None, min_runtime=None, max_runtime=None):
+    """Main function to get the final watchlist party recommendations."""
+    common_watchlist = find_common_watchlist(usernames)
+    
+    if common_watchlist.empty:
+        return []
+    
+    detailed_common_watchlist = merge_with_local_dbw(common_watchlist)
+    filtered_movies = filter_common_movies(
+        detailed_common_watchlist, 
+        genre=genre, 
+        director=director, 
+        decade=decade, 
+        min_runtime=min_runtime, 
+        max_runtime=max_runtime
+    )
+
+    if filtered_movies.empty:
+        return []
+    
+    return filtered_movies.to_dict(orient="records")

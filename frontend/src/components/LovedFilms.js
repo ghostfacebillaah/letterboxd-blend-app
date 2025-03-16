@@ -22,7 +22,7 @@ function TopCommonFilmsPage() {
 
     const fetchTopCommonFilms = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/top_common_films`, {
+        const response = await fetch('http://localhost:5000/api/top_common_films', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username1, username2, top_n: 4 }),
@@ -34,7 +34,7 @@ function TopCommonFilmsPage() {
         if (response.ok) {
           // Get the common films data
           const filmsWithPosters = await Promise.all(data.top_common_films.map(async (film) => {
-            const posterResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/scrape_poster`, {
+            const posterResponse = await fetch('http://localhost:5000/api/scrape_poster', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ film_url: `https://letterboxd.com${film.link}` }),  // Assuming `film.link` is available

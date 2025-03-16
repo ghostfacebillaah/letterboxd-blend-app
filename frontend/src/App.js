@@ -24,16 +24,14 @@ function App() {
           path="/lovedfilms"
           element={<LovedFilms usernames={usernames} />}
         />
-        {/* 
         <Route
           path="/watchlistparty"
-          element={<WatchlistParty />}
+          element={<WatchlistParty setUsernames={setUsernames}/>}
         />
         <Route
-          path="/WpResults"
-          element={<WpResults />}
+          path="/wpresults"
+          element={<WpResults  />}
         /> 
-        */}
       </Routes>
     </Router>
   );

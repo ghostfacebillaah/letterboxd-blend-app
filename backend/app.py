@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
-from utils import calculate_blend_percentage, find_top_rated_common_films, scrape_profile_avatar, scrape_movie_poster
+from utils import calculate_blend_percentage, find_top_rated_common_films, scrape_profile_avatar, scrape_movie_poster, get_watchlist_party_results
 from flask_cors import CORS
+import numpy as np
+import json
 
 app = Flask(__name__)
 CORS(app)  # To allow cross-origin requests from React frontend
@@ -70,13 +72,43 @@ def scrape_poster():
         return jsonify({"image_url": image_url}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
-@app.route('/health')
-def health_check():
-    return {"status": "ok"}, 200
+@app.route('/api/watchlist-party', methods=['POST'])
+def watchlist_party():
+    data = request.json
+    usernames = data.get('usernames', [])
+    genre = data.get('genre')
+    director = data.get('director')
+    decade = data.get('decade')
+    min_runtime = data.get('min_runtime')
+    max_runtime = data.get('max_runtime')
 
+    # Debugging: Check received filters
+    print(f"Received filters - Genre: {genre}, Director: {director}, Decade: {decade}, Min Runtime: {min_runtime}, Max Runtime: {max_runtime}")
+
+    results = get_watchlist_party_results(
+        usernames, genre, director, decade, min_runtime, max_runtime
+    )
+
+    # Debugging: Check results after filtering
+    print(f"Filtered movies count: {len(results)}")
+
+    # Convert NaN to None before returning JSON
+    # safe_results = json.loads(json.dumps(results, default=lambda x: None if x != x else x))
+    # Convert NaN to None before returning JSON
+    def replace_nan(obj):
+        if isinstance(obj, float) and np.isnan(obj):
+            return None
+        elif isinstance(obj, dict):
+            return {k: replace_nan(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [replace_nan(i) for i in obj]
+        return obj
+
+    safe_results = replace_nan(results)
+    return jsonify({'common_films': safe_results})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
+    app.run(debug=True)

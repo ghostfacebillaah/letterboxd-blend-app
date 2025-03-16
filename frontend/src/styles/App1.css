@@ -90,7 +90,7 @@ body {
 }
 
 /* Submit Button Styles */
-.submit-button, .watchlist-button, .wp-button {
+.submit-button, .watchlist-button {
     padding: 15px;
     border: none;
     border-radius: 4px;
@@ -288,26 +288,9 @@ body {
     margin-top: 20px;
 }
 
-.btnwp {
+.btn1 {
     position: absolute;
-    top: 92%;
-    left: 90%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    /* animation: fadeIn 0.5s ease-out forwards;  Fade in animation */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    font-family: LetterboxdFont;
-}
-
-.btnhwp {
-    position: absolute;
-    top: 92%;
+    top: 85%;
     left: 10%;
     transform: translate(-50%, -50%);
     padding: 10px 20px;
@@ -317,8 +300,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    /* animation: fadeIn 0.5s ease-out forwards;  Fade in animation */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
     font-family: LetterboxdFont;
 }
 
@@ -334,25 +316,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-     /*animation: fadeIn 0.5s ease-out forwards;  Fade in animation */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    font-family: LetterboxdFont;
-}
-
-.btn1 {
-    position: absolute;
-    top: 85%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     font-family: LetterboxdFont;
 }
 
@@ -369,35 +333,12 @@ body {
     border-radius: 5px;
     cursor: pointer;
     animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     font-family: LetterboxdFont;
 }
 
-.btnsh {
-    position: absolute;
-    top: 87.5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    /* animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
-    font-family: LetterboxdFont;
-}
-
-
-.btn1:active, .btn2:active, .btn3:active, .btnwp:active, .btnsh:active, .btnhwp:active {
-    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.2);
-}
-
-.btn1:hover, .btn2:hover, .btn3:hover, .btnwp:hover, .btnsh:hover, .btnhwp:hover {
-    background-color: #007bff60;
-    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.3);
+/* Button hover state */
+.btn:hover {
+    background-color: #0056b3;
 }
 
 /* Responsive Styles */
@@ -506,126 +447,63 @@ body {
     }
 }
 
-
 /* Mobile devices */
 @media (max-width: 360px) {
     .circles-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 90%; 
-        height: auto;
-        margin-top: 25vh; /* Space from top */
+        width: 90%;
+        height: 250px;
     }
-    
+
     .circle {
-        width: 200px; /* Adjust as necessary */
-        height: 200px; /* Adjust as necessary */
+        width: 200px;
+        height: 200px;
         object-fit: cover;
-        margin: -1.5px; /* Space between circles */
     }
-    
+
+    .circle1 {
+        top: 85%;
+        left: 30%;
+    }
+
+    .circle2 {
+        top: 85%;
+        left: 70.5%;
+    }
+
     .progress-text {
-        font-size: 1.5rem;
-        text-align: center;
-        margin: 2vh 0;
+        font-size: 1.7rem;
+        white-space: nowrap; /* Prevents text from wrapping */
+        top: 51%;
+        left: 50%;
         animation: fadeIn 0.75s ease-out forwards;
     }
-    
+
     .quote-text {
         font-size: 1rem;
-        margin: 1.8vh -5px;
+        top: 58%;
+        margin: 0;
         padding: 0;
-        width: 100%; 
-        text-align: center;
-        animation: fadeIn 0.75s ease-out forwards;
+        width: 100vw;  /* Full width of the viewport */
+        overflow: hidden; /* Hide overflow */
+        max-width: 100%; /* Limits the width of the text container */
+        display: inline-block; /* Ensures it's treated as a block element */
     }
-    
+
     .btn {
-        font-size: 12px;
-        padding: 8px 16px;
-        margin-top: 2vh;
-        animation: fadeIn 0.5s ease-out forwards;
+        font-size: 10px;
+        padding: 5px 10px;
+        animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
     }
-    
-    .btn-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 5vh;
+
+    .btn2 {
+        top: 75%;
+        left: 50%;
+        white-space: nowrap;
+        font-size: 22px;
     }
-    
-    .btn1, .btn2 {
-        margin: 10px 0;
-        font-size: 15px;
+
+    .btn1 {
+        top: 84%;
+        left: 50%
     }
-    
-}
-
-.watchlist-container {
-    max-width: 600px;
-    width: 100%;
-    padding: 20px;
-    background-color: #14181c;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
-    text-align: center;
-}
-
-/* Plus & Minus Buttons */
-.icon-button {
-    background: none;
-    border: 1px solid white;
-    color: white;
-    font-size: 1.2rem;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.icon-button:hover {
-    background-color: #00e054;
-}
-
-/* Filters */
-.filters {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.filter-group {
-    flex: 1 1 0%;
-    display: flex;
-    flex-direction: column;
-}
-
-.filter-group label {
-    color: white;
-    margin-bottom: 5px;
-}
-
-/* Watchlist button specific styles */
-.wp-button {
-    background-color: #00a13e;
-    margin-top: 3%;
-    min-width: 144px;
-    min-height: 58px;
-}
-
-/* Watchlist button hover state */
-.wp-button:hover {
-    background-color: #008232;
-    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.3);
-    transform: translateY(-1.25px);
-}
-
-/* Watchlist button active state */
-.wp-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 128, 50, 0.2);
 }

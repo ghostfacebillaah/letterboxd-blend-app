@@ -53,8 +53,6 @@ body {
     overflow: hidden; /* Hide overflow for better aesthetics */
     border-radius: 8px; /* Rounded corners */
     background-color: #222; /* Dark background color for items */
-    width: 230px;  /* Fixed width */
-    height: 345px; /* Fixed height */
     flex: 1 1 200px; /* Make each item flexible, with a minimum width of 200px */
     margin: 10px; /* Add some margin between items */
     animation: fadeIn 0.75s ease-out forwards; /* Fade in animation */
@@ -63,7 +61,6 @@ body {
 .poster-item img {
     width: 100%; /* Full width */
     display: block;
-    object-fit: cover;
     height: auto; /* Maintain aspect ratio */
     transition: transform 0.3s ease-in-out; /* Smooth transition for scale */
 }
@@ -151,8 +148,9 @@ h1 {
     }
 
     .btn3 {
-        font-size: 1.2rem;  /* Adjust button font size */
-        margin-top: 50vh; /* Space from top */
+        font-size: 1.2rem; /* Adjust button font size */
+        left: 50%;
+        top: 96%;
     }
 
     .poster-item {
