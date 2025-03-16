@@ -80,7 +80,7 @@ function WpResults() {
   const fetchPosters = async (movies) => {
     return await Promise.all(movies.map(async (film) => {
       try {
-        const posterResponse = await fetch('${process.env.REACT_APP_BACKEND_URL}/api/scrape_poster', {
+        const posterResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/scrape_poster`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ film_url: `https://letterboxd.com${film.link}` }),
