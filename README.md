@@ -23,23 +23,6 @@
   2. Spearman's rank correlation for movie ratings.
   3. Jaccard similarity for attributes such as genres, directors, themes, countries, and more.
   
-### Project Structure:
-```
-lba/
-├── backend/
-│   ├── app.py
-│   ├── utils.py
-│   ├── mother22.csv (Local database of movies)
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── HomePage.js
-    │   │   └── ResultPage.js
-    │   ├── styles/
-    │   │   └── App.css
-    ├── App.js
-    ├── index.js
-```
 
 ### Future Plans:
 - **Recommendations**: Introduce machine learning-based movie recommendations based on common preferences.
