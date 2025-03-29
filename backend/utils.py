@@ -175,10 +175,12 @@ def calculate_blend_percentage(user1, user2):
     # Define attributes for Jaccard similarity calculation and their weights
     attributes = ['decade', 'directors', 'genres', 'themes', 'studios', 'countries', 
                   'language', 'cinematographer', 'composers', 'cast', 'popularity_class', 'duration_class']
-    weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  # Adjust weights as needed
+    weights = [1.5, 2, 2, 1, 1, 1.25, 1.5, 0.85, 0.8, 1, 1.5, 1.25]  # Adjust weights as needed
 
     # Calculate total weighted Jaccard similarity
     total_weighted_jaccard = compare_attributes(merged_user1, merged_user2, attributes, weights)
+    total_weighted_jaccard /= sum(weights)
+    total_weighted_jaccard = min(total_weighted_jaccard, 1) 
 
     # Find common movies
     common_movies = pd.merge(df_user1, df_user2, on='link', suffixes=('_user1', '_user2'))
@@ -186,6 +188,7 @@ def calculate_blend_percentage(user1, user2):
     # Calculate proportion of common films
     total_movies = len(set(df_user1['link']).union(set(df_user2 ['link'])))
     proportion_common = len(common_movies) / total_movies if total_movies > 0 else 0
+    proportion_common = min(proportion_common, 1)
 
     # Filter out unrated movies for Spearman's calculation
     common_rated_movies = common_movies.dropna(subset=['rating_user1', 'rating_user2'])
@@ -193,12 +196,14 @@ def calculate_blend_percentage(user1, user2):
     # Calculate Spearman's rank correlation coefficient for ratings
     if len(common_rated_movies) > 1:
         spearman_corr = spearmanr(common_rated_movies['rating_user1'], common_rated_movies['rating_user2']).correlation
-        spearman_normalized = (spearman_corr + 1) / 2
+        spearman_normalized = min((spearman_corr + 1) / 2, 1)
     else:
         spearman_normalized = 0
 
     # Compute blend percentage
-    blend_percentage = (0.09 * proportion_common) + (0.9 * spearman_normalized) + (0.01 * total_weighted_jaccard)
+    #blend_percentage = (0.09 * proportion_common) + (0.9 * spearman_normalized) + (0.01 * total_weighted_jaccard)
+    blend_percentage = (0.2 * proportion_common) + (0.9 * spearman_normalized) + (0.15 * total_weighted_jaccard)
+    blend_percentage = min(blend_percentage, 1)
 
     # Round off the blend percentage to the nearest whole number
     return round(blend_percentage * 100)
