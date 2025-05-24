@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from utils import calculate_blend_percentage, find_top_rated_common_films, scrape_profile_avatar, scrape_movie_poster, get_watchlist_party_results
 from flask_cors import CORS
+import pandas as pd
 import numpy as np
 import json
 
@@ -53,8 +54,22 @@ def top_common_films():
         return jsonify({"error": "Usernames are required"}), 400
 
     try:
-        top_common_films, _ = find_top_rated_common_films(username1, username2, top_n=top_n)
+        top_common_df, _ = find_top_rated_common_films(username1, username2, top_n=top_n)
+        top_common_df = top_common_df.where(pd.notnull(top_common_df), None)
+        top_common_films = top_common_df.to_dict(orient='records')
+
+        for film in top_common_films:
+            try:
+                film_url = f"https://letterboxd.com{film['link_user1'] if 'link_user1' in film else film['link']}"
+                image_url = scrape_movie_poster(film_url)
+                print(f" {film['title']} poster: {image_url}")
+                film['image_url'] = image_url if image_url.startswith("http") else 'fallback-image-url.jpg'
+            except Exception as e:
+                print(f"Poster scraping failed for {film.get('title')}: {e}")
+                film['image_url'] = 'fallback-image-url.jpg'
+
         return jsonify({"top_common_films": top_common_films})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -106,7 +121,10 @@ def watchlist_party():
             return [replace_nan(i) for i in obj]
         return obj
 
-    safe_results = replace_nan(results)
+    results_dict = results.to_dict(orient='records') if hasattr(results, 'to_dict') else results
+    safe_results = replace_nan(results_dict)
+    print(f"Returning {len(safe_results)} films")
+    print("Sample output:", safe_results[:1])
     return jsonify({'common_films': safe_results})
 
 

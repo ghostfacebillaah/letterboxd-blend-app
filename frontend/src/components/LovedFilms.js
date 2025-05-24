@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Lf.css';
+import PosterImage from './PosterImage'; // adjust the path if needed
+
 
 function TopCommonFilmsPage() {
   const location = useLocation();
@@ -29,33 +31,22 @@ function TopCommonFilmsPage() {
         });
 
         const data = await response.json();
-        console.log(data);
+        console.log("Response from API: ", data.top_common_films);
 
         if (response.ok) {
           // Get the common films data
-          const filmsWithPosters = await Promise.all(data.top_common_films.map(async (film) => {
-            const posterResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/scrape_poster`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ film_url: `https://letterboxd.com${film.link}` }),  // Assuming `film.link` is available
-            });
-
-            const posterData = await posterResponse.json();
-            return {
-              ...film,
-              image_url: posterData.image_url || 'No image found',
-            };
-          }));
-
-          setTopCommonFilms(filmsWithPosters);
+          console.log("Setting top common films:", data.top_common_films);
+          setTopCommonFilms(data.top_common_films);
           setLoading(false);
         } else {
           setLoadingMessage(`Error: ${data.error}`);
           setLoading(false);
         }
       } catch (error) {
+        //console.error(error);
+        //setLoadingMessage(`Error: ${data.error || 'No top_common_films'}`);
+        console.error("Error fetching top films:", error);
         setLoadingMessage('Error fetching top films');
-        console.error(error);
         setLoading(false);
       }
     };
@@ -102,23 +93,24 @@ function TopCommonFilmsPage() {
           <h1>{username1} and {username2}'s Favourite Four</h1>
           <div className="poster-grid">
             {topCommonFilms.length > 0 ? (
-              topCommonFilms.map((film, index) => (
+              topCommonFilms.map((film, index) => {
+                console.log("Rendering film:", film);
+                return (
                 <div className="poster-item" key={index}>
-                  <a href={`https://letterboxd.com${film.link}`} target="_blank" rel="noopener noreferrer">
-                    <img 
-                      src={film.image_url} 
-                      alt={`${film.title} (${film.year}) poster`} 
-                      loading="lazy" // Implementing lazy loading
-                      onError={(e) => { e.target.onerror = null; e.target.src = 'fallback-image-url.jpg'; }} // Fallback image in case of error
+                  <a href={`https://letterboxd.com${film.link || film.link_user1}`} target="_blank" rel="noopener noreferrer">
+                    <PosterImage
+                      src={film.image_url}
+                      alt={`${film.title} ${film.year || ''} poster`}
                     />
                   </a>
                   <div className="poster-overlay">
-                    <h4>{film.title}</h4>
+                    <h4>{film.title} {film.year || ''}</h4>
                     <p>{username1}'s rating: {film.rating_user1 ? film.rating_user1.toFixed(1) : 'N/A'}</p>
                     <p>{username2}'s rating: {film.rating_user2 ? film.rating_user2.toFixed(1) : 'N/A'}</p>
                   </div>
                 </div>
-              ))
+                );
+              })
             ) : (
               <p>No common films found.</p>
             )}

@@ -16,6 +16,7 @@ function WpResults() {
   useEffect(() => {
     if (commonFilms.length > 0) {
       pickInitialMovies(commonFilms);
+      console.log("Received commonFilms from backend:", location.state?.commonFilms);
     }
     else {
       setLoading(false); // Stop loading if there are no common films
@@ -76,6 +77,7 @@ function WpResults() {
       }, 100);
     }
   };
+
   
   const fetchPosters = async (movies) => {
     return await Promise.all(movies.map(async (film) => {
@@ -95,6 +97,7 @@ function WpResults() {
     }));
   };
   
+
   return (
     <div className="result-container">
       {loading ? (
