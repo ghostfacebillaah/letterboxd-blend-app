@@ -60,7 +60,7 @@ def scrape_diary(username):
         diary_entries = soup.find_all("tr", class_="diary-entry-row")
 
         for entry in diary_entries:
-            title_tag = entry.find("h3", class_="headline-3 prettify").find("a")
+            title_tag = entry.find("h2", class_="name -primary prettify").find("a")
             if not title_tag:
                 continue
 
